@@ -20,19 +20,19 @@ export class MainpageComponent implements OnInit {
     this.token = this.loginService.getToken();
     this.expirationDate = this.loginService.getTokenExpirationDate(this.token);
     this.isTokenExpired = this.loginService.isTokenExpired(this.token);
+     this.refreshToken(this.token);
 
-    console.log("token is expired "+this.isTokenExpired)
-    console.log("token expiration date "+this.expirationDate)
-    console.log("token is  "+this.token)
   }
 
-  refreshToken(){
-
-    this.expirationDate = this.loginService.getTokenExpirationDate(this.token);
-
-    if(!this.expirationDate){
-      
-    }
+  refreshToken(token:string){
+    this.loginService.getUser(token).subscribe(
+      data =>{
+        console.log(data.name +" whats")
+      },error =>{
+        console.log(error.message +" error")
+      }
+    );
+    
 
   }
 

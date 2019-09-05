@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../model/login-model';
 import * as jwt_decode from 'jwt-decode';
@@ -45,5 +45,29 @@ export class LoginService {
     const date = this.getTokenExpirationDate(token);
     if(date === undefined) return false;
     return !(date.valueOf() > new Date().valueOf());
+  }
+
+
+  /*return this.http.get(endpoint+'/get/user/',httpOptions).subscribe(
+    data => {
+      console.log(data)
+    },
+
+    error =>{
+      console.log(error)
+    }
+    
+  )*/
+
+  getUser(token:string){
+
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer '+token
+      })
+    };
+
+    return this.http.get<any>(endpoint+'/get/user',httpOptions)
   }
 }

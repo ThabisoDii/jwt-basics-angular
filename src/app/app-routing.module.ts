@@ -6,7 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
-  {path :'main',component: MainpageComponent,canActivate: [AuthGuard]},
+  {path :'main',component: MainpageComponent},
   {path:'home',component:SignInComponent},
   {path:'',redirectTo:'home',pathMatch:'full'}//,makes the app to route to welcome on default when its served
 ];
